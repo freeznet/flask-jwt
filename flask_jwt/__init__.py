@@ -20,7 +20,7 @@ from flask import current_app, request, jsonify, _request_ctx_stack
 from flask.views import MethodView
 from werkzeug.local import LocalProxy
 
-__version__ = '0.2.0'
+__version__ = '0.2.0-xjimi-dev'
 
 current_user = LocalProxy(lambda: getattr(_request_ctx_stack.top, 'current_user', None))
 
@@ -165,7 +165,7 @@ class JWTAuthView(MethodView):
             token = generate_token(user)
             return _jwt.response_callback(token)
         else:
-            raise JWTError('Bad Request', 'Invalid credentials')
+            raise JWTError('Forbidden', 'Invalid credentials', status_code=403)
 
 
 class JWT(object):
